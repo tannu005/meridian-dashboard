@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
@@ -9,15 +11,19 @@ import rateLimit from 'express-rate-limit';
 import { authRouter, requireAuth, verifySocketAuth } from './auth';
 import { startMarketDataStream } from './marketData';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const server = http.createServer(app);
 
 // 1. Set Security HTTP Headers (Helmet)
-app.use(helmet());
+// CSP disabled to prevent issues with Vite's inline script injections in production unless strictly configured
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // 2. Strict CORS Configuration
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? ['https://your-production-domain.com'] 
+  ? ['https://your-production-domain.com', 'https://meridian-dashboard.onrender.com'] // Add Render domain placeholder
   : ['http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({ 
@@ -94,7 +100,18 @@ io.on('connection', (socket) => {
   });
 });
 
+// 6. Serve Frontend in Production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../dist');
+  app.use(express.static(distPath));
+  
+  // SPA Catch-all
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`✅ Secure Backend Server running on http://localhost:${PORT}`);
+  console.log(`✅ Secure Backend Server running on port ${PORT}`);
 });
