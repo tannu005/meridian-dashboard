@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  @media (pointer: fine) {
+    * {
+      cursor: none !important;
+    }
+  }
+  
+  /* Custom Senior-Level Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(251, 146, 60, 0.5); /* Accent glow on hover */
+  }
+}
+
+@layer utilities {
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+}
+
+/* Premium Glassmorphism for Recharts Tooltips */
+.recharts-tooltip-wrapper > div {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(10, 10, 12, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+}
+
+/* Dynamic Theme Root Setup */
+:root {
+  /* Cinematic Orange/Rose Dark Theme Variables */
+  --color-bg-primary: #0a0a0c; /* Deep dark background */
+  --color-bg-secondary: rgba(255, 255, 255, 0.03); /* Glassmorphism base dark */
+  --color-bg-tertiary: rgba(255, 255, 255, 0.08);
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #d4d4d8; /* zinc-300 for higher contrast */
+  --color-text-muted: #82828b; /* Passed WCAG AA contrast against #0a0a0c */
+  
+  --color-border-primary: rgba(251, 146, 60, 0.15); /* Orange border */
+  --color-border-secondary: rgba(255, 255, 255, 0.05);
+  
+  --color-accent: #fb923c; /* Orange-400 */
+  --color-accent-hover: #f97316; /* Orange-500 */
+  
+  --color-status-success: #10b981;
+  --color-status-warning: #f59e0b;
+  --color-status-danger: #fb7185; /* Rose-400 */
+  --color-status-info: #c084fc; /* Purple-400 */
+}
+
+/* Global Light Mode (Glossy & Warm) */
+.theme-light {
+  --color-bg-primary: #fffaf7; /* Very warm cream/orange tint */
+  --color-bg-secondary: rgba(255, 255, 255, 0.55); /* High gloss translucent */
+  --color-bg-tertiary: rgba(255, 255, 255, 0.85);
+  
+  --color-text-primary: #1f1a17; /* Deep warm slate */
+  --color-text-secondary: #5e514a; /* Warm grey */
+  --color-text-muted: #8c7e75; /* Soft warm grey */
+  
+  --color-border-primary: rgba(251, 146, 60, 0.35); /* Richer orange border */
+  --color-border-secondary: rgba(251, 146, 60, 0.15);
+  
+  --color-accent: #f97316; /* Vibrant orange */
+  --color-accent-hover: #ea580c;
+  
+  --color-status-success: #059669;
+  --color-status-warning: #d97706;
+  --color-status-danger: #e11d48;
+  --color-status-info: #9333ea;
+}
+
+/* Bloomberg Wire Theme (Terminal) */
+.theme-bloomberg {
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #000000;
+  --color-bg-tertiary: #111111;
+  
+  --color-text-primary: #ffb000; /* Amber */
+  --color-text-secondary: #ff8a00;
+  --color-text-muted: #885000;
+  
+  --color-border-primary: #ff8a00;
+  --color-border-secondary: rgba(255, 138, 0, 0.25);
+  
+  --color-accent: #ffb000;
+  --color-accent-hover: #ffcc00;
+  
+  --color-status-success: #10b981;
+  --color-status-warning: #f59e0b;
+  --color-status-danger: #ef4444;
+  --color-status-info: #3b82f6;
+}
+
+/* High Contrast Theme (Brutalist Neo-Terminal) */
+.theme-high-contrast {
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #000000;
+  --color-bg-tertiary: #111111;
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  
+  --color-border-primary: #ffffff;
+  --color-border-secondary: #ffffff;
+  
+  --color-accent: #06b6d4; /* Neon cyan */
+  --color-accent-hover: #0891b2;
+  
+  --color-status-success: #00ff00;
+  --color-status-warning: #ffff00;
+  --color-status-danger: #ff0000;
+  --color-status-info: #00ffff;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--color-bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  perspective: 1000px;
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-panel-hover:hover {
+  background: var(--color-bg-tertiary);
+  box-shadow: 0 15px 40px -10px rgba(251, 146, 60, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+/* Base Tailwind classes */
+@theme {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-border-primary: var(--color-border-primary);
+  --color-border-secondary: var(--color-border-secondary);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-status-success: var(--color-status-success);
+  --color-status-warning: var(--color-status-warning);
+  --color-status-danger: var(--color-status-danger);
+  --color-status-info: var(--color-status-info);
+  
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Grid Drag & Drop React-Grid-Layout styling overrides */
+.react-grid-item.react-grid-placeholder {
+  background: var(--color-accent-muted) !important;
+  border: 2px dashed var(--color-accent) !important;
+  border-radius: 0.5rem;
+  opacity: 0.8;
+  z-index: 2;
+  transition-duration: 100ms;
+}
+
+.react-resizable-handle {
+  width: 12px;
+  height: 12px;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  cursor: se-resize;
+  border-bottom: 2px solid var(--color-text-muted);
+  border-right: 2px solid var(--color-text-muted);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.react-resizable-handle:hover {
+  opacity: 1;
+  border-bottom-color: var(--color-accent);
+  border-right-color: var(--color-accent);
+}
+
+/* Premium Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
+}
+
+/* Shimmer Shimmer effect for Loading state */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-border-primary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Custom CSS Marquee utility (fallback for performance) */
+.marquee-ticker {
+  display: flex;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: flex;
+  animation: ticker-scroll 30s linear infinite;
+  animation-play-state: running;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* Breathing Premium Gradients */
+@keyframes smooth-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-blend-light {
+  background: linear-gradient(-45deg, #ffffff, #fff3eb, #ffe4d1, #ffffff);
+  background-size: 400% 400%;
+  animation: smooth-gradient 15s ease infinite;
+}
+
+.bg-blend-dark {
+  background: linear-gradient(-45deg, #0a0a0c, #16110e, #241108, #0a0a0c);
+  background-size: 400% 400%;
+  animation: smooth-gradient 15s ease infinite;
+}
+
+/* Playful Bento Hover Physics transitions */
+.widget-card {
+  border-radius: 1.5rem !important; /* rounded-3xl */
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary) !important;
+  box-shadow: 0 10px 40px -10px rgba(45, 43, 42, 0.08) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease;
+}
+
+.widget-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px -15px rgba(255, 107, 107, 0.25) !important;
+  border-color: var(--color-accent) !important;
+  z-index: 10;
+}
+
+/* Brutalist and Terminal Overrides for Specific Themes */
+.theme-bloomberg .widget-card,
+.theme-high-contrast .widget-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.theme-bloomberg .widget-card {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  border-width: 1px !important;
+  border-color: var(--color-border-primary) !important;
+}
+.theme-bloomberg .widget-card:hover {
+  transform: none;
+  box-shadow: 0 0 15px rgba(255, 138, 0, 0.3) !important;
+}
+
+.theme-high-contrast .widget-card {
+  border-radius: 0px !important;
+  box-shadow: 6px 6px 0px 0px var(--color-accent) !important;
+  border-width: 2px !important;
+  border-color: var(--color-text-primary) !important;
+  transition: transform 0.1s;
+}
+.theme-high-contrast .widget-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px 0px var(--color-accent) !important;
+}
+
+/* Institutional Typography Hierarchy Helpers */
+.inst-title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.inst-value {
+  font-family: 'JetBrains Mono', 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.inst-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  color: var(--color-text-muted);
+}
+
+/* Bloomberg-style real-time price change update flashes */
+@keyframes flash-update-up {
+  0% { background-color: rgba(16, 185, 129, 0.35); }
+  100% { background-color: transparent; }
+}
+
+@keyframes flash-update-down {
+  0% { background-color: rgba(239, 68, 68, 0.35); }
+  100% { background-color: transparent; }
+}
+
+.animate-update-up {
+  animation: flash-update-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-update-down {
+  animation: flash-update-down 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Soft transition highlights for interactive lists and table rows */
+.table-row-hover {
+  transition: background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); border-color: var(--color-success); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); border-color: var(--color-border-primary); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); border-color: var(--color-border-primary); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 1.5s cubic-bezier(0.4, 0, 0.6, 1);
+}
