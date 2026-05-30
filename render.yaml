@@ -1,5 +1,5 @@
 services:
-  - type: web_service
+  - type: web
     name: meridian-dashboard
     env: node
     buildCommand: npm install && npm run build
@@ -8,6 +8,6 @@ services:
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
-        value: 20
+        value: "20"
       - key: JWT_SECRET
         generateValue: true
