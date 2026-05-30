@@ -105,9 +105,13 @@ if (process.env.NODE_ENV === 'production') {
   const distPath = path.join(__dirname, '../dist');
   app.use(express.static(distPath));
   
-  // SPA Catch-all
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+  // SPA Catch-all (Express 5 compatible)
+  app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api')) {
+      res.sendFile(path.join(distPath, 'index.html'));
+    } else {
+      next();
+    }
   });
 }
 
